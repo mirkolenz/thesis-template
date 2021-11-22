@@ -1,0 +1,135 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{_init}
+
+% Language
+\RequirePackage[ngerman,english]{babel}
+
+% Math
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{amstext}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+
+% Todo
+\RequirePackage[layout={footnote,index}]{fixme}
+\newcommand{\todo}[2][]{\fxnote[#1]{#2}}
+\newcommand{\TODO}[2][]{\fxnote[#1,layout={inline,index}]{#2}}
+\renewcommand{\fixmelogo}{\emph{Todo}}
+\renewcommand*\@fxtextstd[3]{\ignorespaces#3: #2} % \fxnotename{#1}:
+
+% Basics
+\RequirePackage[final, verbose=silent]{microtype}
+\RequirePackage{xurl}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[pdfusetitle, unicode]{hyperref}
+\hypersetup{hidelinks}
+\RequirePackage{graphicx}
+\RequirePackage[autostyle=true]{csquotes}
+
+% Tables
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{tabularx}
+\RequirePackage{caption}
+\RequirePackage[sharp]{easylist}
+
+% References
+\RequirePackage[
+	backend=biber,
+	style=authoryear,
+    dashed=false,
+    uniquelist=false,
+	maxbibnames=99, % show all authors in bibliography
+	maxcitenames=2, % show 2 authors in citations
+	terseinits=true, % see below
+	giveninits=true, % show only initials
+	uniquename=init, % sort using initials
+	date=year, % show only the year
+	isbn=false, % hide isbn
+	sortcites=true, % sort citations if multiple are given
+]{biblatex}
+
+% Show only one of the following: DOI, ePrint, URL
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map{ % If DOI is available, hide eprint and url.
+			\step[fieldsource=doi,final]
+			\step[fieldset=eprint,null]
+			\step[fieldset=url,null]
+			\step[fieldset=urldate,null]
+		}
+		\map{ % If eprint is available, hide url
+			\step[fieldsource=eprint,final]
+			\step[fieldset=url,null]
+			\step[fieldset=urldate,null]
+		}
+		\map{ % If proceedings title is available, hide conference name
+			\step[fieldsource=booktitle,final]
+			\step[fieldset=eventtitle,null]
+		}
+		\map{ % Hide editor if an author exists
+			\step[fieldsource=author, final]
+			\step[fieldset=editor, null]
+		}
+		\map{ % Hide all series editors
+			\step[fieldset=editorb, null]
+		}
+	}
+}
+
+\renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
+\DeclareNameAlias{sortname}{family-given}
+\RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
+\RequirePackage{acro} % single: Ignore acronyms that occur only once
+\acsetup{
+	hyperref=true,
+	mark-as-used=first,
+	short-format={},
+	long-format={\itshape},
+	cite-cmd=\autocite,
+	cite-cmd={\autocite},
+	group-cite-cmd={\autocite},
+}
+
+% Pseudo-Code
+\RequirePackage{algorithm}
+\RequirePackage[noend]{algpseudocode}
+\algrenewcommand\alglinenumber[1]{\footnotesize #1}
+
+% Layout
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% Fonts
+\RequirePackage{tgpagella}
+\RequirePackage[lining, tabular, semibold]{FiraSans}
+\RequirePackage{FiraMono}
+\RequirePackage{newpxmath}
+
+% Commands
+\@ifundefined{abstract}{
+    \newenvironment{abstract}
+    {
+        \cleardoublepage\thispagestyle{empty}\null\vfill
+        \begin{center}
+            \bfseries\abstractname
+        \end{center}
+        \noindent\ignorespaces
+    }{
+        \vfill\null
+    }
+}{}
+
+\newcommand{\maketoc}{
+	\pagenumbering{roman}
+	% \thispagestyle{empty}
+	% \addtocontents{toc}{\protect\thispagestyle{empty}}
+	\tableofcontents
+	\cleardoublepage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+}
+
+\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}

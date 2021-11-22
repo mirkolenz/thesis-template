@@ -1,0 +1,47 @@
+\documentclass[oneside, captions=tableheading]{scrbook}
+\usepackage{_init}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\title{TODO: Title of Thesis}
+\author{TODO: Author Name}
+\date{\today}
+
+\addbibresource{references.bib}
+\input{src/acronyms.tex}
+
+\begin{document}
+
+
+\frontmatter
+\include{src/title}
+\include{src/abstract}
+\tableofcontents
+\printacronyms[heading=chapter*]
+\listoffigures
+\listoftables
+\listofalgorithms
+
+
+\mainmatter
+\include{src/introduction}
+\include{src/foundations}
+\include{src/related-work}
+\include{src/concept}
+\include{src/evaluation}
+\include{src/conclusion}
+
+
+% Only if needed
+% \appendix
+
+
+\backmatter
+\cleardoublepage
+\printbibliography
+\cleardoublepage
+\include{src/affidavit}
+
+
+\end{document}
