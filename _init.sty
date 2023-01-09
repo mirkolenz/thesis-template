@@ -12,11 +12,12 @@
 \RequirePackage{mathtools}
 
 % Todo
-\RequirePackage[layout={footnote,index}]{fixme}
-\newcommand{\todo}[2][]{\fxnote[#1]{#2}}
-\newcommand{\TODO}[2][]{\fxnote[#1,layout={inline,index}]{#2}}
-\renewcommand{\fixmelogo}{\emph{Todo}}
-\renewcommand*\@fxtextstd[3]{\ignorespaces#3: #2} % \fxnotename{#1}:
+\RequirePackage{fixme}
+\fxsetup{
+    theme=color,
+    layout={inline, index}
+}
+\let\todo\fxnote
 
 % Basics
 \RequirePackage[final, verbose=silent]{microtype}
