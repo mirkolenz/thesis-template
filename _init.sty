@@ -28,6 +28,11 @@
 \RequirePackage{graphicx}
 \RequirePackage[autostyle=true]{csquotes}
 
+% Lists
+\RequirePackage[shortlabels]{enumitem}
+\newlist{enumerate*}{enumerate*}{1}
+\setlist[enumerate*]{label=(\roman*)}
+
 % Tables
 \RequirePackage{booktabs}
 \RequirePackage{longtable}
@@ -82,12 +87,14 @@
 \renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
 \DeclareNameAlias{sortname}{family-given}
 \RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
-\RequirePackage{acro} % single: Ignore acronyms that occur only once
+\RequirePackage{acro}[=v2]
 \acsetup{
-	make-links=true,
-	format/short={},
-	format/long={\itshape},
-	cite/cmd={\autocite},
+	hyperref=true,
+	mark-as-used=first,
+	short-format={},
+	long-format={\itshape},
+	cite-cmd={\autocite},
+	group-cite-cmd={\autocite},
 }
 
 % Pseudo-Code
