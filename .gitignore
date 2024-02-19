@@ -370,3 +370,4 @@ Temporary Items
 
 *.pdf
 !/assets/**/*.pdf
+/result
