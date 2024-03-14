@@ -8,7 +8,7 @@ stdenvNoCC.mkDerivation {
   configurePhase = ''
     runHook preConfigure
 
-    rm -r assets LICENSE *.nix *.lock
+    rm -r LICENSE *.nix *.lock
 
     runHook postConfigure
   '';
