@@ -44,8 +44,8 @@
 \RequirePackage[
 	backend=biber,
 	style=authoryear,
-    dashed=false,
-    uniquelist=false,
+	dashed=false,
+	uniquelist=false,
 	maxbibnames=99, % show all authors in bibliography
 	maxcitenames=2, % show 2 authors in citations
 	terseinits=true, % see below
@@ -86,6 +86,8 @@
 
 \renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
 \DeclareNameAlias{sortname}{family-given}
+\let\cite\autocite
+
 \RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
 \RequirePackage{acro}[=v2]
 \acsetup{
