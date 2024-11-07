@@ -14,8 +14,8 @@
 % Todo
 \RequirePackage{fixme}
 \fxsetup{
-    theme=color,
-    layout={inline, index}
+  theme=color,
+  layout={inline, index}
 }
 \let\todo\fxnote
 
@@ -42,46 +42,46 @@
 
 % References
 \RequirePackage[
-	backend=biber,
-	style=authoryear,
-	dashed=false,
-	uniquelist=false,
-	maxbibnames=99, % show all authors in bibliography
-	maxcitenames=2, % show 2 authors in citations
-	terseinits=true, % see below
-	giveninits=true, % show only initials
-	uniquename=init, % sort using initials
-	date=year, % show only the year
-	isbn=false, % hide isbn
-	sortcites=true, % sort citations if multiple are given
+  backend=biber,
+  style=authoryear,
+  dashed=false,
+  uniquelist=false,
+  maxbibnames=99, % show all authors in bibliography
+  maxcitenames=2, % show 2 authors in citations
+  terseinits=true, % see below
+  giveninits=true, % show only initials
+  uniquename=init, % sort using initials
+  date=year, % show only the year
+  isbn=false, % hide isbn
+  sortcites=true, % sort citations if multiple are given
 ]{biblatex}
 
 % Show only one of the following: DOI, ePrint, URL
 \DeclareSourcemap{
-	\maps[datatype=bibtex]{
-		\map{ % If DOI is available, hide eprint and url.
-			\step[fieldsource=doi,final]
-			\step[fieldset=eprint,null]
-			\step[fieldset=url,null]
-			\step[fieldset=urldate,null]
-		}
-		\map{ % If eprint is available, hide url
-			\step[fieldsource=eprint,final]
-			\step[fieldset=url,null]
-			\step[fieldset=urldate,null]
-		}
-		\map{ % If proceedings title is available, hide conference name
-			\step[fieldsource=booktitle,final]
-			\step[fieldset=eventtitle,null]
-		}
-		\map{ % Hide editor if an author exists
-			\step[fieldsource=author, final]
-			\step[fieldset=editor, null]
-		}
-		\map{ % Hide all series editors
-			\step[fieldset=editorb, null]
-		}
-	}
+  \maps[datatype=bibtex]{
+    \map{ % If DOI is available, hide eprint and url.
+      \step[fieldsource=doi,final]
+      \step[fieldset=eprint,null]
+      \step[fieldset=url,null]
+      \step[fieldset=urldate,null]
+    }
+    \map{ % If eprint is available, hide url
+      \step[fieldsource=eprint,final]
+      \step[fieldset=url,null]
+      \step[fieldset=urldate,null]
+    }
+    \map{ % If proceedings title is available, hide conference name
+      \step[fieldsource=booktitle,final]
+      \step[fieldset=eventtitle,null]
+    }
+    \map{ % Hide editor if an author exists
+      \step[fieldsource=author, final]
+      \step[fieldset=editor, null]
+    }
+    \map{ % Hide all series editors
+      \step[fieldset=editorb, null]
+    }
+  }
 }
 
 \renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
@@ -91,12 +91,12 @@
 \RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
 \RequirePackage{acro}[=v2]
 \acsetup{
-	hyperref=true,
-	mark-as-used=first,
-	short-format={},
-	long-format={\itshape},
-	cite-cmd={\autocite},
-	group-cite-cmd={\autocite},
+  hyperref=true,
+  mark-as-used=first,
+  short-format={},
+  long-format={\itshape},
+  cite-cmd={\autocite},
+  group-cite-cmd={\autocite},
 }
 
 % Pseudo-Code
@@ -117,26 +117,26 @@
 
 % Commands
 \@ifundefined{abstract}{
-    \newenvironment{abstract}
-    {
-        \cleardoublepage\thispagestyle{empty}\null\vfill
-        \begin{center}
-            \bfseries\abstractname
-        \end{center}
-        \noindent\ignorespaces
-    }{
-        \vfill\null
-    }
+  \newenvironment{abstract}
+  {
+    \cleardoublepage\thispagestyle{empty}\null\vfill
+    \begin{center}
+      \bfseries\abstractname
+    \end{center}
+    \noindent\ignorespaces
+  }{
+    \vfill\null
+  }
 }{}
 
 \newcommand{\maketoc}{
-	\pagenumbering{roman}
-	% \thispagestyle{empty}
-	% \addtocontents{toc}{\protect\thispagestyle{empty}}
-	\tableofcontents
-	\cleardoublepage
-	\pagenumbering{arabic}
-	\setcounter{page}{1}
+  \pagenumbering{roman}
+  % \thispagestyle{empty}
+  % \addtocontents{toc}{\protect\thispagestyle{empty}}
+  \tableofcontents
+  \cleardoublepage
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
 }
 
 \newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
