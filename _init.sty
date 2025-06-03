@@ -20,13 +20,13 @@
 \let\todo\fxnote
 
 % Basics
-\RequirePackage[final, verbose=silent]{microtype}
 \RequirePackage{xurl}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage[pdfusetitle, unicode]{hyperref}
 \hypersetup{hidelinks}
 \RequirePackage{graphicx}
 \RequirePackage[autostyle=true]{csquotes}
+\RequirePackage{orcidlink}
 
 % Lists
 \RequirePackage[shortlabels]{enumitem}
@@ -38,9 +38,78 @@
 \RequirePackage{longtable}
 \RequirePackage{tabularx}
 \RequirePackage{caption}
+\RequirePackage{subcaption}
 \RequirePackage[sharp]{easylist}
 
 % References
+\RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
+\RequirePackage{acro}[=v2]
+\acsetup{
+  hyperref=true,
+  mark-as-used=first,
+  short-format={},
+  long-format={\itshape},
+}
+% fix for issue with v2 in texlive 2024: https://tex.stackexchange.com/a/724382
+\acsetup{display-foreign = false}
+\acsetup{foreign-format = {\scshape}}
+\ExplSyntaxOn
+\prop_new:N \l__acro_foreign_format_prop
+\ExplSyntaxOff
+
+% Pseudo-Code
+\RequirePackage{algorithm}
+\RequirePackage[noend]{algpseudocode}
+\algrenewcommand\alglinenumber[1]{\footnotesize #1}
+
+% Aliases
+\newcommand*{\mailto}[1]{\href{mailto:#1}{#1}}
+\newcommand*{\tel}[1]{\href{tel:#1}{#1}}
+\newcommand*{\http}[1]{\href{http://#1}{#1}}
+\newcommand*{\https}[1]{\href{https://#1}{#1}}
+\newcommand*{\github}[1]{\https{github.com/#1}}
+\newcommand*{\anonymousGithub}[1]{\https{anonymous.4open.science/r/#1}}
+
+% Above can be used for most papers
+% The rest is specific to this template
+
+% Layout
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\RequirePackage[final, verbose=silent]{microtype}
+
+% Fonts
+\RequirePackage{tgpagella}
+\RequirePackage[lining, tabular, semibold]{FiraSans}
+\RequirePackage{FiraMono}
+\RequirePackage{newpxmath}
+
+% Commands
+\@ifundefined{abstract}{
+  \newenvironment{abstract}
+  {
+    \cleardoublepage\thispagestyle{empty}\null\vfill
+    \begin{center}
+      \bfseries\abstractname
+    \end{center}
+    \noindent\ignorespaces
+  }{
+    \vfill\null
+  }
+}{}
+
+\newcommand{\maketoc}{
+  \pagenumbering{roman}
+  % \thispagestyle{empty}
+  % \addtocontents{toc}{\protect\thispagestyle{empty}}
+  \tableofcontents
+  \cleardoublepage
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+}
+
+% BibLaTeX
 \RequirePackage[
   backend=biber,
   style=authoryear,
@@ -88,63 +157,5 @@
 \DeclareNameAlias{sortname}{family-given}
 \let\cite\autocite
 
-\RequirePackage[ngerman, english, noabbrev, capitalize]{cleveref}
-\RequirePackage{acro}[=v2]
-\acsetup{
-  hyperref=true,
-  mark-as-used=first,
-  short-format={},
-  long-format={\itshape},
-  cite-cmd={\autocite},
-  group-cite-cmd={\autocite},
-}
-% fix for issue with v2 in texlive 2024: https://tex.stackexchange.com/a/724382
-\acsetup{display-foreign = false}
-\acsetup{foreign-format = {\scshape}}
-\ExplSyntaxOn
-\prop_new:N \l__acro_foreign_format_prop
-\ExplSyntaxOff
-
-% Pseudo-Code
-\RequirePackage{algorithm}
-\RequirePackage[noend]{algpseudocode}
-\algrenewcommand\alglinenumber[1]{\footnotesize #1}
-
-% Layout
-\clubpenalty=10000
-\widowpenalty=10000
-\displaywidowpenalty=10000
-
-% Fonts
-\RequirePackage{tgpagella}
-\RequirePackage[lining, tabular, semibold]{FiraSans}
-\RequirePackage{FiraMono}
-\RequirePackage{newpxmath}
-
-% Commands
-\@ifundefined{abstract}{
-  \newenvironment{abstract}
-  {
-    \cleardoublepage\thispagestyle{empty}\null\vfill
-    \begin{center}
-      \bfseries\abstractname
-    \end{center}
-    \noindent\ignorespaces
-  }{
-    \vfill\null
-  }
-}{}
-
-\newcommand{\maketoc}{
-  \pagenumbering{roman}
-  % \thispagestyle{empty}
-  % \addtocontents{toc}{\protect\thispagestyle{empty}}
-  \tableofcontents
-  \cleardoublepage
-  \pagenumbering{arabic}
-  \setcounter{page}{1}
-}
-
-\newcommand{\email}[1]{\texttt{\href{mailto:#1}{#1}}}
-
 \RequirePackage{scrhack}
+
