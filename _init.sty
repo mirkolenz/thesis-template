@@ -1,6 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{_init}
 
+% This can be used for most papers.
+
 % Language
 \RequirePackage[ngerman, english]{babel}
 
@@ -70,93 +72,6 @@
 \newcommand*{\https}[1]{\href{https://#1}{#1}}
 \newcommand*{\github}[1]{\https{github.com/#1}}
 \newcommand*{\anonymousGithub}[1]{\https{anonymous.4open.science/r/#1}}
-
-% Above can be used for most papers
-% The rest is specific to this template
-
-% Layout
-\clubpenalty=10000
-\widowpenalty=10000
-\displaywidowpenalty=10000
-\RequirePackage[final, verbose=silent]{microtype}
-
-% Fonts
-\RequirePackage{tgpagella}
-\RequirePackage[lining, tabular, semibold]{FiraSans}
-\RequirePackage{FiraMono}
-\RequirePackage{newpxmath}
-
-% Commands
-\@ifundefined{abstract}{
-  \newenvironment{abstract}
-  {
-    \cleardoublepage\thispagestyle{empty}\null\vfill
-    \begin{center}
-      \bfseries\abstractname
-    \end{center}
-    \noindent\ignorespaces
-  }{
-    \vfill\null
-  }
-}{}
-
-\newcommand{\maketoc}{
-  \pagenumbering{roman}
-  % \thispagestyle{empty}
-  % \addtocontents{toc}{\protect\thispagestyle{empty}}
-  \tableofcontents
-  \cleardoublepage
-  \pagenumbering{arabic}
-  \setcounter{page}{1}
-}
-
-% BibLaTeX
-\RequirePackage[
-  backend=biber,
-  style=authoryear,
-  dashed=false,
-  uniquelist=false,
-  maxbibnames=99, % show all authors in bibliography
-  maxcitenames=2, % show 2 authors in citations
-  terseinits=true, % see below
-  giveninits=true, % show only initials
-  uniquename=init, % sort using initials
-  date=year, % show only the year
-  isbn=false, % hide isbn
-  sortcites=true, % sort citations if multiple are given
-]{biblatex}
-
-% Show only one of the following: DOI, ePrint, URL
-\DeclareSourcemap{
-  \maps[datatype=bibtex]{
-    \map{ % If DOI is available, hide eprint and url.
-      \step[fieldsource=doi,final]
-      \step[fieldset=eprint,null]
-      \step[fieldset=url,null]
-      \step[fieldset=urldate,null]
-    }
-    \map{ % If eprint is available, hide url
-      \step[fieldsource=eprint,final]
-      \step[fieldset=url,null]
-      \step[fieldset=urldate,null]
-    }
-    \map{ % If proceedings title is available, hide conference name
-      \step[fieldsource=booktitle,final]
-      \step[fieldset=eventtitle,null]
-    }
-    \map{ % Hide editor if an author exists
-      \step[fieldsource=author,final]
-      \step[fieldset=editor,null]
-    }
-    \map{ % Hide all series editors
-      \step[fieldset=editorb,null]
-    }
-  }
-}
-
-\renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
-\DeclareNameAlias{sortname}{family-given}
-\let\cite\autocite
-
-\RequirePackage{scrhack}
+\newcommand*{\zenodo}[1]{\https{zenodo.org/records/#1}}
+\newcommand*{\doi}[1]{\https{doi.org/#1}}
 
