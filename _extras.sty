@@ -42,9 +42,7 @@
 % BibLaTeX
 \RequirePackage[
   backend=biber,
-  style=authoryear,
-  dashed=false,
-  uniquelist=false,
+  style=numeric,
   maxbibnames=99, % show all authors in bibliography
   maxcitenames=2, % show 2 authors in citations
   terseinits=true, % see below
@@ -74,13 +72,23 @@
       \step[fieldset=eventtitle,null]
     }
     \map{ % Hide editor if an author exists
-      \step[fieldsource=author,final]
-      \step[fieldset=editor,null]
+      \step[fieldsource=author, final]
+      \step[fieldset=editor, null]
     }
     \map{ % Hide all series editors
-      \step[fieldset=editorb,null]
+      \step[fieldset=editorb, null]
+    }
+    \map{ % Write url field without protocol to custom field verba
+      \step[fieldsource=url, final]
+      \step[fieldset=verba, origfieldval, final]
+      \step[fieldsource=verba, match=\regexp{\A(ht|f)tp(s)?:\/\/}, replace={}]
     }
   }
+}
+
+% Inject the custom field verba when printing the url to hide the protocol
+\DeclareFieldFormat{url}{%
+  \mkbibacro{URL}\addcolon\space\href{#1}{\nolinkurl{\thefield{verba}}}
 }
 
 \renewcommand*{\revsdnamepunct}{} % remove comma between last and first name
